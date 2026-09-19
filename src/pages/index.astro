@@ -1,0 +1,345 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Nav from "../islands/Nav";
+import QuickStartTabs from "../islands/QuickStartTabs";
+
+const formats = [
+  "PDF", "DOCX", "PPTX", "XLSX", "HTML", "EPUB", "Apple Pages", "ODF",
+  "EML", "MSG", "XBRL", "LaTeX", "PNG", "TIFF", "JPEG", "WAV", "MP3",
+  "MP4", "WebM", "WebVTT", "DocLang", "纯文本", "Markdown",
+];
+
+const latest = [
+  { title: "视频文件解析", body: "支持 MP4、AVI、MOV、MKV、WebM，输出 ASR 转写文本与代表性关键帧。" },
+  { title: "ODF 文档解析", body: "OpenDocument 文本文档（.odt）、电子表格（.ods）、演示文稿（.odp）。" },
+  { title: "XBRL 财务报告", body: "解析可扩展商业报告语言文档，面向财务数据结构。" },
+  { title: "邮件文件解析", body: "支持 .eml 与 .msg 邮件格式，保留正文与附件结构。" },
+  { title: "EPUB 电子书", body: "解析 EPUB 电子书文件，输出连续的结构化内容。" },
+  { title: "Apple Pages", body: "兼容两代容器格式（Pages 5+ 与 iWork '09）。" },
+  { title: "纯文本与 Markdown 超集", body: "解析 .txt、.text 以及 .qmd、.Rmd 文件。" },
+  { title: "图表理解", body: "柱状图、饼图、折线图可转换为表格或代码，并补充详细描述。" },
+];
+
+const footerLinks = [
+  { label: "文档", href: "https://docling-project.github.io/docling/" },
+  { label: "示例", href: "https://docling-project.github.io/docling/examples/" },
+  { label: "集成", href: "https://docling-project.github.io/docling/integrations/" },
+  { label: "技术报告", href: "https://arxiv.org/abs/2408.09869" },
+  { label: "讨论区", href: "https://github.com/docling-project/docling/discussions" },
+  { label: "参与贡献", href: "https://github.com/docling-project/docling/blob/main/CONTRIBUTING.md" },
+  { label: "Discord", href: "https://docling.ai/discord" },
+];
+---
+
+<Layout
+  title="Docling · 让文档处理变得简单"
+  description="Docling 解析多种文档格式并对 PDF 深度理解，与生成式 AI 生态无缝集成。支持本地执行，MIT 开源。"
+>
+  <div id="top" class="relative min-h-[100dvh] overflow-hidden">
+    <div
+      aria-hidden="true"
+      class="pointer-events-none absolute inset-x-0 top-0 h-[520px] bg-[radial-gradient(60%_55%_at_25%_0%,rgba(16,185,129,0.09),transparent_70%)]"
+    ></div>
+
+    <Nav client:load />
+
+    <main>
+      {/* 英雄区：左文右图不对称分栏 */}
+      <section class="mx-auto grid max-w-6xl grid-cols-1 items-center gap-12 px-4 pb-16 pt-24 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16 lg:pb-24 lg:pt-28">
+        <div>
+          <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-accent">
+            IBM Research 开源 · MIT 许可证
+          </p>
+          <h1 class="mt-5 text-4xl font-semibold leading-[1.08] tracking-tight text-zinc-50 md:text-5xl lg:text-6xl">
+            让文档处理
+            <br />
+            变得简单
+          </h1>
+          <p class="mt-6 max-w-[42ch] text-base leading-relaxed text-zinc-400 md:text-lg">
+            解析数十种文档格式，深度理解 PDF 的布局、表格与公式，并与生成式 AI 生态无缝集成。
+          </p>
+          <div class="mt-9 flex flex-wrap items-center gap-3">
+            <a
+              href="#quickstart"
+              class="rounded-full bg-accent-strong px-6 py-3 text-sm font-semibold text-zinc-950 transition-transform hover:-translate-y-px active:translate-y-0"
+            >
+              快速开始
+            </a>
+            <a
+              href="https://docling-project.github.io/docling/"
+              target="_blank"
+              rel="noreferrer"
+              class="rounded-full border border-zinc-700 px-6 py-3 text-sm font-medium text-zinc-200 transition-colors hover:border-zinc-500 hover:text-white"
+            >
+              阅读文档
+            </a>
+          </div>
+        </div>
+
+        <figure class="relative">
+          <img
+            src="/images/docling-processing.png"
+            alt="Docling 处理管线：从多种文档输入到统一文档模型，再导出到各类 AI 框架"
+            width={2048}
+            height={855}
+            loading="eager"
+            class="w-full rounded-2xl border border-zinc-800 bg-zinc-900/40"
+          />
+          <figcaption class="mt-3 text-center font-mono text-xs text-zinc-600">
+            一条命令，把文档变成 AI 可用的结构化数据
+          </figcaption>
+        </figure>
+      </section>
+
+      {/* 支持格式跑马灯(全页唯一) */}
+      <section aria-label="支持的文档格式" class="relative border-y border-zinc-800/70 bg-zinc-900/30 py-5">
+        <div class="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-zinc-950 to-transparent"></div>
+        <div class="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-zinc-950 to-transparent"></div>
+        <div class="flex overflow-hidden">
+          <ul class="marquee-track flex shrink-0 items-center gap-10 pr-10 font-mono text-sm text-zinc-500">
+            {[...formats, ...formats].map((f, i) => (
+              <li key={`${f}-${i}`} class="flex shrink-0 items-center gap-10">
+                {f}
+                <span aria-hidden="true" class="h-1 w-1 rounded-full bg-zinc-700"></span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* 功能特性 bento */}
+      <section id="features" class="mx-auto max-w-6xl scroll-mt-20 px-4 py-20 sm:px-6 lg:py-28">
+        <h2 class="reveal-scroll max-w-[24ch] text-3xl font-semibold tracking-tight text-zinc-50 md:text-4xl">
+          不只是文本提取，是真正理解文档
+        </h2>
+        <p class="reveal-scroll mt-4 max-w-[55ch] text-zinc-400">
+          从页面布局到表格结构，从扫描版 OCR 到图表理解，Docling 把原始文档转换成富有表达力的统一表示。
+        </p>
+
+        <div class="mt-12 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <article class="reveal-scroll md:col-span-2 flex flex-col justify-between overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900/40">
+            <div class="p-6 sm:p-8">
+              <h3 class="text-lg font-semibold text-zinc-100">深度理解 PDF</h3>
+              <p class="mt-2 max-w-[48ch] text-sm leading-relaxed text-zinc-400">
+                页面布局、阅读顺序、表格结构、代码、公式、图片分类，逐页重建文档的逻辑结构。
+              </p>
+            </div>
+            <div class="border-t border-zinc-800 px-4 pb-4 pt-4 sm:px-6 sm:pb-6">
+              <img
+                src="/images/docling-arch.png"
+                alt="Docling 架构：打包的布局与表格模型汇入统一的 DoclingDocument 类型化表示"
+                width={4152}
+                height={1902}
+                loading="lazy"
+                class="w-full rounded-xl bg-white/95 object-contain invert-90"
+              />
+            </div>
+          </article>
+
+          <article class="reveal-scroll flex flex-col justify-between overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900/40">
+            <div class="p-6">
+              <h3 class="text-lg font-semibold text-zinc-100">图表理解</h3>
+              <p class="mt-2 text-sm leading-relaxed text-zinc-400">
+                柱状图、饼图、折线图可转换为表格或代码，并补充详细描述。
+              </p>
+            </div>
+            <img
+              src="/images/chart.png"
+              alt="文档中的图表被转换为结构化数据表"
+              width={1024}
+              height={768}
+              loading="lazy"
+              class="w-full border-t border-zinc-800 object-cover"
+            />
+          </article>
+
+          <article class="reveal-scroll rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+            <h3 class="text-lg font-semibold text-zinc-100">统一的 DoclingDocument</h3>
+            <p class="mt-2 text-sm leading-relaxed text-zinc-400">
+              统一且富有表达力的文档表示格式，导出 Markdown、HTML、WebVTT、DocTags 与无损 JSON。
+            </p>
+          </article>
+
+          <article class="reveal-scroll rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+            <h3 class="text-lg font-semibold text-zinc-100">专用 XML schema</h3>
+            <p class="mt-2 text-sm leading-relaxed text-zinc-400">
+              支持 DocLang、USPTO 专利、JATS 论文与 XBRL 财务报告等专用格式。
+            </p>
+          </article>
+
+          <article class="reveal-scroll rounded-2xl border border-emerald-900/60 bg-emerald-950/40 p-6">
+            <h3 class="text-lg font-semibold text-zinc-50">本地执行</h3>
+            <p class="mt-2 text-sm leading-relaxed text-zinc-400">
+              全流程可在本地运行，适用于敏感数据与网络隔离环境，数据不出域。
+            </p>
+          </article>
+
+          <div class="reveal-scroll md:col-span-2 lg:col-span-3 flex flex-wrap gap-2.5 pt-2">
+            {[
+              "完善的扫描版 OCR",
+              "多种视觉语言模型（VLM）",
+              "GraniteDocling",
+              "ASR 音频转写",
+              "MCP Server 接入智能体",
+              "docling-serve API 服务",
+              "命令行工具",
+            ].map((tag) => (
+              <span class="rounded-full border border-zinc-800 px-3.5 py-1.5 text-[13px] text-zinc-400">
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 快速开始 */}
+      <section id="quickstart" class="border-t border-zinc-800/70 bg-zinc-900/20">
+        <div class="mx-auto max-w-6xl scroll-mt-20 px-4 py-20 sm:px-6 lg:py-28">
+          <div class="reveal-scroll max-w-[60ch]">
+            <h2 class="text-3xl font-semibold tracking-tight text-zinc-50 md:text-4xl">三步开始</h2>
+            <p class="mt-4 text-zinc-400">安装、转换、集成。从第一行命令到结构化 Markdown，只需几分钟。</p>
+          </div>
+          <div class="reveal-scroll mt-10">
+            <QuickStartTabs client:idle />
+          </div>
+        </div>
+      </section>
+
+      {/* 最新变化 + 即将支持 */}
+      <section id="latest" class="mx-auto max-w-6xl scroll-mt-20 px-4 py-20 sm:px-6 lg:py-28">
+        <div class="grid grid-cols-1 gap-14 lg:grid-cols-[1.4fr_0.6fr] lg:gap-16">
+          <div>
+            <h2 class="reveal-scroll text-3xl font-semibold tracking-tight text-zinc-50 md:text-4xl">
+              最新变化
+            </h2>
+            <ul class="mt-10 grid grid-cols-1 gap-x-10 sm:grid-cols-2">
+              {latest.map((item) => (
+                <li key={item.title} class="reveal-scroll py-5">
+                  <h3 class="text-[15px] font-medium text-zinc-100">{item.title}</h3>
+                  <p class="mt-1.5 text-sm leading-relaxed text-zinc-500">{item.body}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <aside class="reveal-scroll h-fit rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 lg:sticky lg:top-24">
+            <h3 class="text-sm font-semibold text-zinc-100">即将支持</h3>
+            <ul class="mt-4 space-y-4 text-sm leading-relaxed text-zinc-400">
+              <li>元数据抽取，包括标题、作者、参考文献与语言</li>
+              <li>复杂化学内容理解（分子结构）</li>
+            </ul>
+          </aside>
+        </div>
+      </section>
+
+      {/* 集成 */}
+      <section id="integrations" class="border-t border-zinc-800/70">
+        <div class="mx-auto max-w-6xl scroll-mt-20 px-4 py-20 text-center sm:px-6 lg:py-28">
+          <h2 class="reveal-scroll text-3xl font-semibold tracking-tight text-zinc-50 md:text-4xl">
+            接入你已有的 AI 技术栈
+          </h2>
+          <p class="reveal-scroll mx-auto mt-4 max-w-[46ch] text-zinc-400">
+            与主流框架和工具的原生集成，让 AI 应用更快落地。
+          </p>
+          <div class="reveal-scroll mt-12 flex flex-wrap items-center justify-center gap-x-14 gap-y-10 sm:gap-x-20">
+            {[
+              { file: "langchain.svg", name: "LangChain" },
+              { file: "llamaindex.svg", name: "LlamaIndex" },
+              { file: "crewai.svg", name: "Crew AI" },
+              { file: "haystack.svg", name: "Haystack" },
+              { file: "modelcontextprotocol.svg", name: "MCP" },
+            ].map((brand) => (
+              <a
+                key={brand.file}
+                href="https://docling-project.github.io/docling/integrations/"
+                target="_blank"
+                rel="noreferrer"
+                aria-label={brand.name}
+                class="text-zinc-300 opacity-55 transition-opacity duration-200 hover:opacity-100"
+              >
+                <img
+                  src={`/brands/${brand.file}`}
+                  alt={brand.name}
+                  width={24}
+                  height={24}
+                  loading="lazy"
+                  decoding="async"
+                  class="h-8 w-8"
+                />
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 结尾 CTA */}
+      <section class="mx-auto max-w-6xl px-4 pb-24 pt-4 text-center sm:px-6">
+        <div class="reveal-scroll rounded-3xl border border-zinc-800 bg-zinc-900/40 px-6 py-16 sm:py-20">
+          <h2 class="mx-auto max-w-[22ch] text-3xl font-semibold tracking-tight text-zinc-50 md:text-4xl">
+            把下一份文档交给 Docling
+          </h2>
+          <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+            <a
+              href="https://github.com/docling-project/docling"
+              target="_blank"
+              rel="noreferrer"
+              class="rounded-full bg-accent-strong px-6 py-3 text-sm font-semibold text-zinc-950 transition-transform hover:-translate-y-px active:translate-y-0"
+            >
+              在 GitHub 查看
+            </a>
+            <a
+              href="https://docling-project.github.io/docling/"
+              target="_blank"
+              rel="noreferrer"
+              class="rounded-full border border-zinc-700 px-6 py-3 text-sm font-medium text-zinc-200 transition-colors hover:border-zinc-500 hover:text-white"
+            >
+              阅读文档
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="border-t border-zinc-800/70 bg-zinc-950">
+      <div class="mx-auto grid max-w-6xl grid-cols-1 gap-10 px-4 py-14 sm:px-6 md:grid-cols-[1.2fr_1fr]">
+        <div>
+          <div class="flex items-center gap-2.5">
+            <img src="/logo.png" alt="" width={24} height={24} class="h-6 w-6" />
+            <span class="text-sm font-semibold text-zinc-100">Docling</span>
+          </div>
+          <p class="mt-4 max-w-[42ch] text-sm leading-relaxed text-zinc-500">
+            Docling 是 LF AI &amp; Data 基金会的托管项目，由 IBM Research Zurich 的 AI for
+            knowledge 团队发起。代码库采用 MIT 许可证，各模型遵循其原始包中的模型许可证。
+          </p>
+        </div>
+        <nav aria-label="页脚链接" class="grid grid-cols-2 content-start gap-x-6 gap-y-3 md:justify-items-end">
+          {footerLinks.map((l) => (
+            <a
+              key={l.href}
+              href={l.href}
+              target="_blank"
+              rel="noreferrer"
+              class="text-sm text-zinc-500 transition-colors hover:text-zinc-200"
+            >
+              {l.label}
+            </a>
+          ))}
+        </nav>
+      </div>
+      <div class="mx-auto max-w-6xl border-t border-zinc-800/70 px-4 py-6 sm:px-6">
+        <details class="group text-sm text-zinc-500">
+          <summary class="cursor-pointer list-none select-none hover:text-zinc-300">引用 Docling</summary>
+          <pre class="mt-4 overflow-x-auto rounded-xl border border-zinc-800 bg-zinc-900/50 p-4 font-mono text-xs leading-relaxed text-zinc-400">{`@techreport{Docling,
+  author = {Deep Search Team},
+  month = {8},
+  title = {Docling Technical Report},
+  url = {https://arxiv.org/abs/2408.09869},
+  eprint = {2408.09869},
+  doi = {10.48550/arXiv.2408.09869},
+  version = {1.0.0},
+  year = {2024}
+}`}</pre>
+        </details>
+      </div>
+    </footer>
+  </div>
+</Layout>

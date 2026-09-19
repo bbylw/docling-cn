@@ -1,0 +1,38 @@
+---
+import "../styles/global.css";
+import "@fontsource-variable/geist/index.css";
+import "@fontsource-variable/jetbrains-mono/index.css";
+import "@fontsource/noto-sans-sc/chinese-simplified-400.css";
+import "@fontsource/noto-sans-sc/chinese-simplified-500.css";
+import "@fontsource/noto-sans-sc/chinese-simplified-700.css";
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+const canonical = (Astro.site?.href ?? "https://docling.ndjp.net").replace(/\/$/, "");
+const ogImage = `${canonical}/images/docling-processing.png`;
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="theme-color" content="#09090b" />
+    <title>{title}</title>
+  </head>
+  <body class="bg-zinc-950 font-sans text-zinc-100 antialiased">
+    <slot />
+  </body>
+</html>
