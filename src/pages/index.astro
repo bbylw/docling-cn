@@ -111,7 +111,7 @@ const footerLinks = [
               class="w-full rounded-xl"
             />
           </div>
-          <figcaption class="mt-4 text-center font-mono text-xs text-zinc-500">
+          <figcaption class="mt-4 text-center font-mono text-xs text-zinc-400">
             一条命令，把文档变成 AI 可用的结构化数据
           </figcaption>
         </figure>
@@ -121,7 +121,7 @@ const footerLinks = [
       <section aria-label="支持的文档格式" class="border-y border-zinc-800/70 bg-zinc-900/30 py-5">
         <div class="marquee-fade flex overflow-hidden">
           <div class="marquee-track flex shrink-0 items-center">
-            <ul class="flex shrink-0 items-center gap-10 pr-10 font-mono text-sm text-zinc-500">
+            <ul class="flex shrink-0 items-center gap-10 pr-10 font-mono text-sm text-zinc-400">
               {formats.map((f) => (
                 <li key={f} class="flex shrink-0 items-center gap-10">
                   {f}
@@ -129,7 +129,7 @@ const footerLinks = [
                 </li>
               ))}
             </ul>
-            <ul aria-hidden="true" class="flex shrink-0 items-center gap-10 pr-10 font-mono text-sm text-zinc-500">
+            <ul aria-hidden="true" class="flex shrink-0 items-center gap-10 pr-10 font-mono text-sm text-zinc-400">
               {formats.map((f) => (
                 <li key={`dup-${f}`} class="flex shrink-0 items-center gap-10">
                   {f}
@@ -264,7 +264,7 @@ const footerLinks = [
                   <h3 class="text-[15px] font-medium text-zinc-100 transition-colors group-hover:text-accent">
                     {item.title}
                   </h3>
-                  <p class="mt-1.5 text-sm leading-relaxed text-zinc-500">{item.body}</p>
+                  <p class="mt-1.5 text-sm leading-relaxed text-zinc-400">{item.body}</p>
                 </li>
               ))}
             </ul>
@@ -280,8 +280,8 @@ const footerLinks = [
       </section>
 
       {/* 集成 */}
-      <section id="integrations" class="border-t border-zinc-800/70">
-        <div class="mx-auto max-w-6xl scroll-mt-20 px-4 py-20 text-center sm:px-6 lg:py-28">
+      <section id="integrations" class="scroll-mt-20 border-t border-zinc-800/70">
+        <div class="mx-auto max-w-6xl px-4 py-20 text-center sm:px-6 lg:py-28">
           <h2 class="reveal-scroll text-3xl font-semibold tracking-tight text-zinc-50 md:text-4xl">
             接入你已有的 AI 技术栈
           </h2>
@@ -358,7 +358,7 @@ const footerLinks = [
             <img src="/logo-64.png" alt="" width={24} height={24} loading="lazy" class="h-6 w-6" />
             <span class="text-sm font-semibold text-zinc-100">Docling</span>
           </div>
-          <p class="mt-4 max-w-[42ch] text-sm leading-relaxed text-zinc-500">
+          <p class="mt-4 max-w-[42ch] text-sm leading-relaxed text-zinc-400">
             Docling 是 LF AI &amp; Data 基金会的托管项目，由 IBM Research Zurich 的 AI for
             knowledge 团队发起。代码库采用 MIT 许可证，各模型遵循其原始包中的模型许可证。
           </p>
@@ -370,7 +370,7 @@ const footerLinks = [
               href={l.href}
               target="_blank"
               rel="noreferrer"
-              class="text-sm text-zinc-500 transition-colors hover:text-zinc-200"
+              class="text-sm text-zinc-400 transition-colors hover:text-zinc-100"
             >
               {l.label}
             </a>
@@ -378,7 +378,7 @@ const footerLinks = [
         </nav>
       </div>
       <div class="mx-auto max-w-6xl border-t border-zinc-800/70 px-4 py-6 sm:px-6">
-        <details class="group text-sm text-zinc-500">
+        <details class="group text-sm text-zinc-400">
           <summary class="cursor-pointer list-none select-none hover:text-zinc-300">引用 Docling</summary>
           <pre class="mt-4 overflow-x-auto rounded-xl border border-zinc-800 bg-zinc-900/50 p-4 font-mono text-xs leading-relaxed text-zinc-400">{`@techreport{Docling,
   author = {Deep Search Team},

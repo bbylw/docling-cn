@@ -59,8 +59,8 @@ function highlight(code: string, lang: "python" | "bash") {
       {line.split(TOKEN_RE[lang]).map((part, i) => {
         let cls = "";
         if (part.startsWith('"')) cls = "text-emerald-200/75";
-        else if (part.startsWith("#")) cls = "text-zinc-600";
-        else if (part.startsWith("--")) cls = "text-zinc-500";
+        else if (part.startsWith("#")) cls = "text-zinc-400";
+        else if (part.startsWith("--")) cls = "text-zinc-300";
         else if (part === "pip" || part === "docling" || PY_KEYWORDS.has(part)) cls = "text-accent";
         return (
           <span key={i} className={cls}>
@@ -143,7 +143,7 @@ export default function QuickStartTabs() {
               "shrink-0 px-5 py-3 text-sm transition-colors " +
               (s.id === active
                 ? "border-b-2 border-accent font-medium text-zinc-100"
-                : "border-b-2 border-transparent text-zinc-500 hover:text-zinc-300")
+                : "border-b-2 border-transparent text-zinc-400 hover:text-zinc-100")
             }
           >
             {s.label}
@@ -160,7 +160,7 @@ export default function QuickStartTabs() {
       >
         <span
           aria-hidden="true"
-          className="absolute left-5 top-3.5 font-mono text-[10px] uppercase tracking-[0.18em] text-zinc-600 sm:left-6"
+          className="absolute left-5 top-3.5 font-mono text-[10px] uppercase tracking-[0.18em] text-zinc-400 sm:left-6"
         >
           {step.lang}
         </span>
@@ -180,7 +180,7 @@ export default function QuickStartTabs() {
         </span>
       </div>
 
-      <p className="border-t border-zinc-800 px-5 py-3.5 text-[13px] leading-relaxed text-zinc-500 sm:px-6">
+      <p className="border-t border-zinc-800 px-5 py-3.5 text-[13px] leading-relaxed text-zinc-400 sm:px-6">
         {step.note}
       </p>
     </div>
