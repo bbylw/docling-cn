@@ -49,7 +49,7 @@ const footerLinks = [
       "Docling 让文档处理变得简单：解析多种格式（包括对 PDF 的深度理解），并与生成式 AI 生态无缝集成。",
     url: "https://docling.ndjp.net/",
     codeRepository: "https://github.com/docling-project/docling",
-    softwareVersion: "2.70.0",
+    softwareVersion: "2.129.0",
     license: { "@type": "SoftwareApplication", name: "MIT License", url: "https://opensource.org/licenses/MIT" },
     sameAs: ["https://github.com/docling-project/docling", "https://docling-project.github.io/docling/"],
   })}></script>
@@ -118,10 +118,8 @@ const footerLinks = [
       </section>
 
       {/* 支持格式跑马灯(全页唯一) */}
-      <section aria-label="支持的文档格式" class="relative border-y border-zinc-800/70 bg-zinc-900/30 py-5">
-        <div class="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-zinc-950 to-transparent"></div>
-        <div class="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-zinc-950 to-transparent"></div>
-        <div class="flex overflow-hidden">
+      <section aria-label="支持的文档格式" class="border-y border-zinc-800/70 bg-zinc-900/30 py-5">
+        <div class="marquee-fade flex overflow-hidden">
           <div class="marquee-track flex shrink-0 items-center">
             <ul class="flex shrink-0 items-center gap-10 pr-10 font-mono text-sm text-zinc-500">
               {formats.map((f) => (
@@ -168,6 +166,7 @@ const footerLinks = [
                 sizes="(min-width: 768px) 55vw, 92vw"
                 format="webp"
                 loading="lazy"
+                decoding="async"
                 class="w-full rounded-xl bg-white/95 object-contain invert-90"
               />
             </div>
@@ -187,6 +186,7 @@ const footerLinks = [
               sizes="(min-width: 768px) 32vw, 92vw"
               format="webp"
               loading="lazy"
+              decoding="async"
               class="w-full border-t border-zinc-800 object-cover"
             />
           </article>
@@ -239,8 +239,8 @@ const footerLinks = [
       </section>
 
       {/* 快速开始 */}
-      <section id="quickstart" class="border-t border-zinc-800/70 bg-zinc-900/20">
-        <div class="mx-auto max-w-6xl scroll-mt-20 px-4 py-20 sm:px-6 lg:py-28">
+      <section id="quickstart" class="scroll-mt-20 border-t border-zinc-800/70 bg-zinc-900/20">
+        <div class="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:py-28">
           <div class="reveal-scroll max-w-[60ch]">
             <h2 class="text-3xl font-semibold tracking-tight text-zinc-50 md:text-4xl">快速开始</h2>
             <p class="mt-4 text-zinc-400">安装、转换、进阶管线与 Python 集成，从第一行命令到结构化 Markdown，只需几分钟。</p>

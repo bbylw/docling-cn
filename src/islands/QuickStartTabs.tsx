@@ -1,4 +1,4 @@
-import { useState, type KeyboardEvent } from "react";
+import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 import { Check, Copy } from "@phosphor-icons/react";
 
 type Step = {
@@ -76,16 +76,37 @@ function highlight(code: string, lang: "python" | "bash") {
 export default function QuickStartTabs() {
   const [active, setActive] = useState(steps[0].id);
   const [copied, setCopied] = useState(false);
+  const copiedTimer = useRef<ReturnType<typeof setTimeout>>(null);
+
+  // 清除挂起的"已复制"状态：切换标签页或卸载时不残留定时器
+  const clearCopiedTimer = () => {
+    if (copiedTimer.current) {
+      clearTimeout(copiedTimer.current);
+      copiedTimer.current = null;
+    }
+  };
+  useEffect(() => clearCopiedTimer, []);
+
   const step = steps.find((s) => s.id === active)!;
 
   const copy = async () => {
     try {
       await navigator.clipboard.writeText(step.code);
+      clearCopiedTimer();
       setCopied(true);
-      setTimeout(() => setCopied(false), 1600);
+      copiedTimer.current = setTimeout(() => {
+        setCopied(false);
+        copiedTimer.current = null;
+      }, 1600);
     } catch {
       setCopied(false);
     }
+  };
+
+  const selectTab = (id: string) => {
+    clearCopiedTimer();
+    setActive(id);
+    setCopied(false);
   };
 
   const onTabKeyDown = (e: KeyboardEvent<HTMLButtonElement>, index: number) => {
@@ -96,8 +117,7 @@ export default function QuickStartTabs() {
     else if (e.key === "End") next = steps.length - 1;
     if (next === -1) return;
     e.preventDefault();
-    setActive(steps[next].id);
-    setCopied(false);
+    selectTab(steps[next].id);
     document.getElementById(`tab-${steps[next].id}`)?.focus();
   };
 
@@ -118,10 +138,7 @@ export default function QuickStartTabs() {
             aria-controls={`panel-${s.id}`}
             tabIndex={s.id === active ? 0 : -1}
             onKeyDown={(e) => onTabKeyDown(e, i)}
-            onClick={() => {
-              setActive(s.id);
-              setCopied(false);
-            }}
+            onClick={() => selectTab(s.id)}
             className={
               "shrink-0 px-5 py-3 text-sm transition-colors " +
               (s.id === active
