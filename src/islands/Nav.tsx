@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { List, X } from "@phosphor-icons/react";
 
 const links = [
@@ -11,6 +11,15 @@ const links = [
 
 export default function Nav() {
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
 
   return (
     <header className="fixed inset-x-0 top-0 z-40 border-b border-zinc-800/60 bg-zinc-950/80 backdrop-blur-md">
@@ -26,7 +35,7 @@ export default function Nav() {
               key={l.href}
               href={l.href}
               {...(l.external ? { target: "_blank", rel: "noreferrer" } : {})}
-              className="text-sm text-zinc-400 transition-colors hover:text-zinc-100"
+              className="relative py-1 text-sm text-zinc-400 transition-colors hover:text-zinc-100 after:absolute after:-bottom-0.5 after:left-0 after:h-px after:w-full after:origin-left after:scale-x-0 after:bg-accent/70 after:transition-transform after:duration-300 hover:after:scale-x-100"
             >
               {l.label}
             </a>
@@ -53,7 +62,7 @@ export default function Nav() {
       </div>
 
       {open && (
-        <nav className="border-t border-zinc-800/60 bg-zinc-950 px-4 pb-4 lg:hidden" aria-label="移动导航">
+        <nav className="menu-slide border-t border-zinc-800/60 bg-zinc-950 px-4 pb-4 lg:hidden" aria-label="移动导航">
           {links.map((l) => (
             <a
               key={l.href}

@@ -7,16 +7,17 @@ import Layout from "../layouts/Layout.astro";
     id="main-content"
     class="flex min-h-[100dvh] flex-col items-center justify-center px-4 text-center"
   >
-    <p class="font-mono text-sm text-accent">404</p>
-    <h1 class="mt-4 text-3xl font-semibold tracking-tight text-zinc-50 md:text-4xl">
+    <p class="hero-enter font-mono text-sm text-accent" style="--d:60ms">404</p>
+    <h1 class="hero-enter mt-4 text-3xl font-semibold tracking-tight text-zinc-50 md:text-4xl" style="--d:140ms">
       页面未找到
     </h1>
-    <p class="mt-4 max-w-[40ch] text-zinc-400">
+    <p class="hero-enter mt-4 max-w-[40ch] text-zinc-400" style="--d:220ms">
       你访问的地址不存在或已移动。返回首页继续浏览 Docling 中文站点。
     </p>
     <a
       href="/"
-      class="mt-8 rounded-full bg-accent-strong px-6 py-3 text-sm font-semibold text-zinc-950 transition-transform hover:-translate-y-px active:translate-y-0"
+      class="btn-primary hero-enter mt-8 rounded-full bg-accent-strong px-6 py-3 text-sm font-semibold text-zinc-950"
+      style="--d:300ms"
     >
       返回首页
     </a>

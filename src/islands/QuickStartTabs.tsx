@@ -5,7 +5,7 @@ type Step = {
   id: string;
   label: string;
   note: string;
-  lang: string;
+  lang: "python" | "bash";
   code: string;
 };
 
@@ -46,6 +46,32 @@ const steps: Step[] = [
     ].join("\n"),
   },
 ];
+
+const PY_KEYWORDS = new Set(["from", "import", "print", "def", "return"]);
+const TOKEN_RE = {
+  python: /("[^"]*"|#.*$|\b(?:from|import|print|def|return)\b)/gm,
+  bash: /(--[\w-]+|#.*$|\b(?:pip|docling)\b)/gm,
+} as const;
+
+function highlight(code: string, lang: "python" | "bash") {
+  return code.split("\n").map((line, li) => (
+    <span key={li}>
+      {line.split(TOKEN_RE[lang]).map((part, i) => {
+        let cls = "";
+        if (part.startsWith('"')) cls = "text-emerald-200/75";
+        else if (part.startsWith("#")) cls = "text-zinc-600";
+        else if (part.startsWith("--")) cls = "text-zinc-500";
+        else if (part === "pip" || part === "docling" || PY_KEYWORDS.has(part)) cls = "text-accent";
+        return (
+          <span key={i} className={cls}>
+            {part}
+          </span>
+        );
+      })}
+      {"\n"}
+    </span>
+  ));
+}
 
 export default function QuickStartTabs() {
   const [active, setActive] = useState(steps[0].id);
@@ -109,13 +135,20 @@ export default function QuickStartTabs() {
       </div>
 
       <div
+        key={step.id}
         role="tabpanel"
         id={`panel-${step.id}`}
         aria-labelledby={`tab-${step.id}`}
-        className="relative"
+        className="panel-fade relative"
       >
-        <pre className="overflow-x-auto p-5 font-mono text-[13px] leading-relaxed text-zinc-200 sm:p-6 sm:text-sm">
-          <code>{step.code}</code>
+        <span
+          aria-hidden="true"
+          className="absolute left-5 top-3.5 font-mono text-[10px] uppercase tracking-[0.18em] text-zinc-600 sm:left-6"
+        >
+          {step.lang}
+        </span>
+        <pre className="overflow-x-auto px-5 pb-5 pt-10 font-mono text-[13px] leading-relaxed text-zinc-200 sm:px-6 sm:pb-6 sm:text-sm">
+          <code>{highlight(step.code, step.lang)}</code>
         </pre>
         <button
           type="button"
