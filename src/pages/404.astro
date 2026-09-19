@@ -1,0 +1,24 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="页面未找到 · Docling" description="你访问的页面不存在。">
+  <main
+    id="main-content"
+    class="flex min-h-[100dvh] flex-col items-center justify-center px-4 text-center"
+  >
+    <p class="font-mono text-sm text-accent">404</p>
+    <h1 class="mt-4 text-3xl font-semibold tracking-tight text-zinc-50 md:text-4xl">
+      页面未找到
+    </h1>
+    <p class="mt-4 max-w-[40ch] text-zinc-400">
+      你访问的地址不存在或已移动。返回首页继续浏览 Docling 中文站点。
+    </p>
+    <a
+      href="/"
+      class="mt-8 rounded-full bg-accent-strong px-6 py-3 text-sm font-semibold text-zinc-950 transition-transform hover:-translate-y-px active:translate-y-0"
+    >
+      返回首页
+    </a>
+  </main>
+</Layout>

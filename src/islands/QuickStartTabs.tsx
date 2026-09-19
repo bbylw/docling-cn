@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type KeyboardEvent } from "react";
 import { Check, Copy } from "@phosphor-icons/react";
 
 type Step = {
@@ -62,6 +62,19 @@ export default function QuickStartTabs() {
     }
   };
 
+  const onTabKeyDown = (e: KeyboardEvent<HTMLButtonElement>, index: number) => {
+    let next = -1;
+    if (e.key === "ArrowRight") next = (index + 1) % steps.length;
+    else if (e.key === "ArrowLeft") next = (index - 1 + steps.length) % steps.length;
+    else if (e.key === "Home") next = 0;
+    else if (e.key === "End") next = steps.length - 1;
+    if (next === -1) return;
+    e.preventDefault();
+    setActive(steps[next].id);
+    setCopied(false);
+    document.getElementById(`tab-${steps[next].id}`)?.focus();
+  };
+
   return (
     <div className="overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900/50">
       <div
@@ -69,12 +82,16 @@ export default function QuickStartTabs() {
         aria-label="快速开始步骤"
         className="no-scrollbar flex overflow-x-auto border-b border-zinc-800"
       >
-        {steps.map((s) => (
+        {steps.map((s, i) => (
           <button
             key={s.id}
+            id={`tab-${s.id}`}
             role="tab"
             type="button"
             aria-selected={s.id === active}
+            aria-controls={`panel-${s.id}`}
+            tabIndex={s.id === active ? 0 : -1}
+            onKeyDown={(e) => onTabKeyDown(e, i)}
             onClick={() => {
               setActive(s.id);
               setCopied(false);
@@ -91,7 +108,12 @@ export default function QuickStartTabs() {
         ))}
       </div>
 
-      <div className="relative">
+      <div
+        role="tabpanel"
+        id={`panel-${step.id}`}
+        aria-labelledby={`tab-${step.id}`}
+        className="relative"
+      >
         <pre className="overflow-x-auto p-5 font-mono text-[13px] leading-relaxed text-zinc-200 sm:p-6 sm:text-sm">
           <code>{step.code}</code>
         </pre>
@@ -103,6 +125,9 @@ export default function QuickStartTabs() {
         >
           {copied ? <Check size={15} className="text-accent" /> : <Copy size={15} />}
         </button>
+        <span className="sr-only" aria-live="polite">
+          {copied ? "代码已复制到剪贴板" : ""}
+        </span>
       </div>
 
       <p className="border-t border-zinc-800 px-5 py-3.5 text-[13px] leading-relaxed text-zinc-500 sm:px-6">

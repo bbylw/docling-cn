@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { List, X } from "@phosphor-icons/react";
-import Logo from "./Logo";
 
 const links = [
   { href: "#features", label: "功能特性" },
@@ -17,7 +16,7 @@ export default function Nav() {
     <header className="fixed inset-x-0 top-0 z-40 border-b border-zinc-800/60 bg-zinc-950/80 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
         <a href="#top" className="flex items-center gap-2.5">
-          <Logo className="h-7 w-7" />
+          <img src="/logo-64.png" alt="Docling" width={28} height={28} className="h-7 w-7" decoding="async" />
           <span className="text-[15px] font-semibold tracking-tight text-zinc-100">Docling</span>
         </a>
 
