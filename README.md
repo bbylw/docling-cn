@@ -32,7 +32,7 @@ Docling 让文档处理变得简单：既能解析多种格式（包括对 PDF �
 
 ## 功能特性
 
-- 🗂️ 解析[多种文档格式][supported_formats]：PDF、DOCX、PPTX、XLSX、HTML、EPUB、Apple Pages、WAV、MP3、WebVTT、Box Notes、邮件格式（EML、MSG）、图片（PNG、TIFF、JPEG 等）、LaTeX、DocLang、纯文本等等
+- 🗂️ 解析[多种文档格式][supported_formats]：PDF、DOCX、PPTX、XLSX、HTML、EPUB、Apple Pages、Numbers 与 Keynote、WAV、MP3、WebVTT、Box Notes、邮件格式（EML、MSG）、iCalendar（ICS）、图片（PNG、TIFF、JPEG 等）、LaTeX、DocLang、纯文本等等
 - 📑 深度理解 PDF：页面布局、阅读顺序、表格结构、代码、公式、图片分类等
 - 🧬 统一且富有表达力的 [DoclingDocument][docling_document] 表示格式
 - ↪️ 丰富的[导出格式][supported_formats]与选项：Markdown、HTML、WebVTT、DocLang、[DocTags](https://arxiv.org/abs/2503.11576) 以及无损 JSON
@@ -50,10 +50,11 @@ Docling 让文档处理变得简单：既能解析多种格式（包括对 PDF �
 
 - 🎬 解析视频文件（MP4、AVI、MOV、MKV、WebM），输出 ASR 转写文本与代表性关键帧
 - 📄 解析 ODF（OpenDocument Format）文件：文本文档（`.odt`）、电子表格（`.ods`）、演示文稿（`.odp`）
-- 💼 解析 XBRL（可扩展商业报告语言）文档，用于财务报告
-- 📧 解析邮件文件（`.eml`、`.msg`）
+- 💼 解析 XBRL（可扩展商业报告语言）与 iXBRL（内联可扩展商业报告语言）文档，用于财务报告
+- 📧 解析邮件文件（`.eml`、`.msg`），包括会议邀请
+- 📅 解析日历文件（`.ics`、`.ical`、`.icalendar`、`.ifb`），涵盖事件、待办、日志与忙闲时间，并支持参与人、提醒和附件名
 - 📚 解析 EPUB 电子书文件
-- 🍎 解析 Apple Pages（`.pages`）文档，兼容两代容器格式（Pages 5+ 与 iWork '09）
+- 🍎 解析 Apple Pages（`.pages`）文档、Numbers（`.numbers`）电子表格与 Keynote（`.key`）演示文稿
 - 📝 解析纯文本文件（`.txt`、`.text`）以及 Markdown 超集（`.qmd`、`.Rmd`）
 - 📊 图表理解（柱状图、饼图、折线图）：可转换为表格或代码，并补充详细描述
 
@@ -87,7 +88,7 @@ docling https://arxiv.org/pdf/2206.01062
 你也可以通过 Docling CLI 使用 🥚[GraniteDocling](https://huggingface.co/ibm-granite/granite-docling-258M) 及其他 VLM：
 
 ```bash
-docling --pipeline vlm --vlm-model granite_docling https://arxiv.org/pdf/2206.01062
+docling --vlm-model granite_docling https://arxiv.org/pdf/2206.01062
 ```
 
 ## 3. Python 用法（推荐）

@@ -8,18 +8,20 @@ import archImg from "../assets/docling-arch.png";
 import chartImg from "../assets/chart.png";
 
 const formats = [
-  "PDF", "DOCX", "PPTX", "XLSX", "HTML", "EPUB", "Apple Pages", "ODF",
-  "EML", "MSG", "XBRL", "LaTeX", "PNG", "TIFF", "JPEG", "WAV", "MP3",
-  "MP4", "WebM", "WebVTT", "DocLang", "纯文本", "Markdown",
+  "PDF", "DOCX", "PPTX", "XLSX", "HTML", "EPUB", "Apple Pages", "Numbers",
+  "Keynote", "ODF", "EML", "MSG", "ICS", "XBRL", "iXBRL", "LaTeX", "PNG",
+  "TIFF", "JPEG", "WAV", "MP3", "MP4", "WebM", "WebVTT", "DocLang", "纯文本",
+  "Markdown",
 ];
 
 const latest = [
   { title: "视频文件解析", body: "支持 MP4、AVI、MOV、MKV、WebM，输出 ASR 转写文本与代表性关键帧。" },
   { title: "ODF 文档解析", body: "OpenDocument 文本文档（.odt）、电子表格（.ods）、演示文稿（.odp）。" },
-  { title: "XBRL 财务报告", body: "解析可扩展商业报告语言文档，面向财务数据结构。" },
-  { title: "邮件文件解析", body: "支持 .eml 与 .msg 邮件格式，保留正文与附件结构。" },
+  { title: "XBRL 财务报告", body: "解析 XBRL 与 iXBRL（内联可扩展商业报告语言）文档，面向财务数据结构。" },
+  { title: "邮件文件解析", body: "支持 .eml 与 .msg 邮件格式，包括会议邀请。" },
+  { title: "日历文件解析", body: "支持 .ics、.ical、.icalendar、.ifb，涵盖事件、待办、日志与忙闲时间，并保留参与人、提醒和附件名。" },
   { title: "EPUB 电子书", body: "解析 EPUB 电子书文件，输出连续的结构化内容。" },
-  { title: "Apple Pages", body: "兼容两代容器格式（Pages 5+ 与 iWork '09）。" },
+  { title: "Apple 办公套件", body: "解析 Pages（.pages）文档、Numbers（.numbers）电子表格与 Keynote（.key）演示文稿。" },
   { title: "纯文本与 Markdown 超集", body: "解析 .txt、.text 以及 .qmd、.Rmd 文件。" },
   { title: "图表理解", body: "柱状图、饼图、折线图可转换为表格或代码，并补充详细描述。" },
 ];
@@ -49,7 +51,7 @@ const footerLinks = [
       "Docling 让文档处理变得简单：解析多种格式（包括对 PDF 的深度理解），并与生成式 AI 生态无缝集成。",
     url: "https://docling.ndjp.net/",
     codeRepository: "https://github.com/docling-project/docling",
-    softwareVersion: "2.129.0",
+    softwareVersion: "2.151.1",
     license: { "@type": "SoftwareApplication", name: "MIT License", url: "https://opensource.org/licenses/MIT" },
     sameAs: ["https://github.com/docling-project/docling", "https://docling-project.github.io/docling/"],
   })}></script>

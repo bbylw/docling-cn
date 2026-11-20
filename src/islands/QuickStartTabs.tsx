@@ -29,7 +29,7 @@ const steps: Step[] = [
     label: "VLM 管线",
     note: "通过 Docling CLI 使用 GraniteDocling 等视觉语言模型处理文档。",
     lang: "bash",
-    code: "docling --pipeline vlm --vlm-model granite_docling \\\n  https://arxiv.org/pdf/2206.01062",
+    code: "docling --vlm-model granite_docling \\\n  https://arxiv.org/pdf/2206.01062",
   },
   {
     id: "python",
